@@ -1,0 +1,23 @@
+<table class="table table-striped" *ngIf="locationObjects">
+    <thead>
+        <tr>
+            <th>Standort</th>
+            <th>Wochentage</th>
+            <th>Startzeit</th>
+            <th>Endzeit</th>
+            <th>Trainingsplatz</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let field of fields">
+            <td>{{getLocationName(field.locationID)}}</td>
+            <td>{{getDays(field.dayOfTheWeek)}}</td>
+            <td>{{field.startTime}}</td>
+            <td>{{field.endTime}}</td>
+            <td>{{field.fieldNr}}</td>
+            <td><button type="button" class="btn btn-secondary" (click)="gotoDetail(field)">bearbeiten</button></td>
+        </tr>
+    </tbody>
+</table>
+<button type="button" class="btn btn-primary btn-lg" (click)="gotoDetail()">Trainingsplatz hinzufügen</button>
