@@ -12,18 +12,24 @@ namespace WebAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserLogin
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserLogin()
+        public User()
         {
-            this.Responses = new HashSet<Response>();
+            this.Events = new HashSet<Event>();
+            this.User_Participates_Event = new HashSet<User_Participates_Event>();
         }
     
-        public System.Guid UserId { get; set; }
-        public string FirstName { get; set; }
+        public int UserID { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Prename { get; set; }
+        public string Surname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Response> Responses { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User_Participates_Event> User_Participates_Event { get; set; }
     }
 }

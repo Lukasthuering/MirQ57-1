@@ -25,8 +25,8 @@ namespace WebAPI.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Response> Responses { get; set; }
-        public virtual DbSet<TeamEvent> TeamEvents { get; set; }
-        public virtual DbSet<UserLogin> UserLogins { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<User_Participates_Event> User_Participates_Event { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

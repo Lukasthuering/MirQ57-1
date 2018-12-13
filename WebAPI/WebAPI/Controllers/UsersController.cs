@@ -11,83 +11,19 @@ namespace WebAPI.Controllers
         private MirQ57Database db = new MirQ57Database();
 
         /// <summary>
-        /// Returns all users
+        /// Get user by username and password
         /// </summary>
-        /// <returns>List of of users</returns>
-        public List<UserLogin> Get()
-        {
-            List<UserLogin> userLogins = db.UserLogins.ToList();
-            return userLogins;
-        }
-
-        /// <summary>
-        /// Get user by id
-        /// </summary>
-        /// <param name="id">Identifier</param>
+        /// <param name="username">Username of user</param>
+        /// <param name="password">Passwort of user</param>
         /// <returns>Userobject</returns>
-        public UserLogin Get(Guid id)
+        [HttpGet]
+        public User Get([FromBody]User user)
         {
-            if (id != null)
+            if (user == null)
             {
-                return db.UserLogins.Find(id); ;
+                throw new ArgumentNullException("user");
             }
-            return null;
-        }
-
-        /// <summary>
-        /// Save new user
-        /// </summary>
-        /// <param name="userLogin">User to create without id</param>
-        /// <returns>Created user with id filled</returns>
-        public UserLogin Post([FromBody]UserLogin userLogin)
-        {
-            if (ModelState.IsValid)
-            {
-                userLogin.UserId = Guid.NewGuid();
-                db.UserLogins.Add(userLogin);
-                db.SaveChanges();
-            }
-            return userLogin;
-        }
-
-        /// <summary>
-        /// Update existing user
-        /// </summary>
-        /// <param name="id">Id of user to update</param>
-        /// <param name="userLogin">Data to be filled in the user</param>
-        public UserLogin Put(Guid id, [FromBody]UserLogin userLogin)
-        {
-            if (id != null)
-            {
-                UserLogin foundUserLogin = db.UserLogins.Find(id);
-                if (foundUserLogin != null)
-                {
-                    foundUserLogin.Responses = userLogin.Responses;
-                    foundUserLogin.FirstName = userLogin.FirstName;
-                    db.SaveChanges();
-                    return foundUserLogin;
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Delete user from database
-        /// </summary>
-        /// <param name="id">id of user to delete</param>
-        public bool Delete(Guid id)
-        {
-            if (id != null)
-            {
-                var foundEntry = db.UserLogins.Find(id);
-                if (foundEntry != null)
-                {
-                    db.UserLogins.Remove(foundEntry);
-                    db.SaveChanges();
-                    return true;
-                }
-            }
-            return false;
+            return db.Users.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
         }
 
         protected override void Dispose(bool disposing)

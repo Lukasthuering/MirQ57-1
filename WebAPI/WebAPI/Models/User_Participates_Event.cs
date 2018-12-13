@@ -12,14 +12,14 @@ namespace WebAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Response
+    public partial class User_Participates_Event
     {
-        public System.Guid ResponseId { get; set; }
-        public Nullable<System.Guid> UserId { get; set; }
-        public Nullable<System.Guid> EventId { get; set; }
-        public Nullable<bool> Response1 { get; set; }
+        public int ParticipationID { get; set; }
+        public int fk_EventID { get; set; }
+        public int fk_UserID { get; set; }
+        public bool Participates { get; set; }
     
-        public virtual TeamEvent TeamEvent { get; set; }
-        public virtual UserLogin UserLogin { get; set; }
+        public virtual Event Event { get; set; }
+        public virtual User User { get; set; }
     }
 }

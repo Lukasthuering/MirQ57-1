@@ -12,18 +12,22 @@ namespace WebAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TeamEvent
+    public partial class Event
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TeamEvent()
+        public Event()
         {
-            this.Responses = new HashSet<Response>();
+            this.User_Participates_Event = new HashSet<User_Participates_Event>();
         }
     
-        public System.Guid EventId { get; set; }
-        public string Description { get; set; }
+        public int EventID { get; set; }
+        public string EventDescription { get; set; }
+        public string EventPLZ { get; set; }
+        public System.DateTime EventDateTime { get; set; }
+        public Nullable<int> fk_UserEventHost { get; set; }
     
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Response> Responses { get; set; }
+        public virtual ICollection<User_Participates_Event> User_Participates_Event { get; set; }
     }
 }
