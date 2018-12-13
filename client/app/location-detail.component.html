@@ -1,0 +1,16 @@
+<div *ngIf="locationObject">
+    <h2 *ngIf="locationObject._id!=''">Standort bearbeiten</h2>
+    <h2 *ngIf="locationObject._id==''">Standort hinzufügen</h2>
+    <form>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="locationObject.name">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-secondary" (click)="goBack()">zurück</button>
+            <button class="btn btn-primary" *ngIf="locationObject._id!=''" (click)="update()">bearbeiten</button>
+            <button class="btn btn-primary" *ngIf="locationObject._id==''" (click)="create()">hinzufügen</button>
+            <button class="btn btn-danger" *ngIf="locationObject._id!=''" (click)="delete()">löschen</button>
+        </div>
+    </form>
+</div>
