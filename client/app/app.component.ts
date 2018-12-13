@@ -3,7 +3,7 @@ import { LocationService } from './location.service';
 
 @Component({
   selector: 'my-app',
-  templateUrl: 'app/index.html',
+  templateUrl: 'app/app-component.html;',
   providers: [LocationService]
 })
 export class AppComponent {
