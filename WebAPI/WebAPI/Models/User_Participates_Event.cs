@@ -11,7 +11,7 @@ namespace WebAPI.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class User_Participates_Event
     {
         public int ParticipationID { get; set; }

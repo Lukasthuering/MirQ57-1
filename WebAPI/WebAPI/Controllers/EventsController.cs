@@ -1,53 +1,62 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using WebAPI.Models;
+using WebAPI.UnitOfWork;
 
 namespace WebAPI.Controllers
 {
     public class EventsController : ApiController
     {
-        private MirQ57Database db = new MirQ57Database();
+        private IUnitOfWork m_UnitOfWork = UnitOfWork.UnitOfWork.GetInstance();
 
         [HttpGet]
         public Event GetEventByDate(DateTime date)
         {
-            return db.Events.FirstOrDefault(e => e.EventDateTime == date);
+            return m_UnitOfWork.Events.Find(e => e.EventDateTime == date).First();
         }
 
         [HttpGet]
-        public Event[] GetAllEvents()
+        public Event GetEventById(int id)
         {
-            return db.Events.ToArray();
+            return m_UnitOfWork.Events.Get(id);
+        }
+
+        [HttpGet]
+        public IEnumerable<Event> GetAllEvents()
+        {
+            return m_UnitOfWork.Events.GetAll();
         }
 
         [HttpPost]
-        public Event CreateEvent([FromBody]Event eventParam)
+        public void CreateEvent([FromBody]Event eventParam)
         {
-            db.Events.Add(eventParam);
-            db.SaveChanges();
-            var createdEvent = db.Events.FirstOrDefault(e => e.EventDateTime == eventParam.EventDateTime && e.EventDescription == eventParam.EventDescription);
-            return createdEvent;
+            m_UnitOfWork.Events.Add(eventParam);
+            m_UnitOfWork.Complete();
         }
 
         [HttpPut]
         public Event UpdateEvent([FromBody]Event eventParam)
         {
-            var existing = db.Events.FirstOrDefault(e => e.EventID == eventParam.EventID);
-            if (existing != null)
-            {
-                existing = eventParam;
-                db.SaveChanges();
-                return eventParam;
-            }
-            return null;
+            m_UnitOfWork.Events.Update(eventParam);
+            m_UnitOfWork.Complete();
+            return m_UnitOfWork.Events.Get(eventParam.EventID);
+        }
+
+        [HttpDelete]
+        public void DeleteEvent([FromBody]Event eventParam)
+        {
+            var entity = m_UnitOfWork.Events.Get(eventParam.EventID);
+            m_UnitOfWork.Events.Remove(entity);
+            m_UnitOfWork.Complete();
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                m_UnitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using WebAPI.Models;
+using WebAPI.UnitOfWork;
 
 namespace WebAPI.Controllers
 {
     public class UsersController : ApiController
     {
-        private MirQ57Database db = new MirQ57Database();
+        private IUnitOfWork m_UnitOfWork = UnitOfWork.UnitOfWork.GetInstance();
 
         /// <summary>
         /// Get user by username and password
@@ -19,25 +20,21 @@ namespace WebAPI.Controllers
         [HttpGet]
         public User Get([FromBody]User user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException("user");
-            }
-            return db.Users.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
+            return m_UnitOfWork.Users.Find(u => u.Username == user.Username && u.Password == user.Password).First();
         }
 
         [HttpPost]
-        public async void CreateUser([FromBody]User user)
+        public void CreateUser([FromBody]User user)
         {
-            db.Users.Add(user);
-            await db.SaveChangesAsync();
+            m_UnitOfWork.Users.Add(user);
+            m_UnitOfWork.Complete();
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                m_UnitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
