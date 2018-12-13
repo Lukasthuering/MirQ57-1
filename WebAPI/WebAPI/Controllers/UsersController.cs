@@ -26,6 +26,13 @@ namespace WebAPI.Controllers
             return db.Users.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
         }
 
+        [HttpPost]
+        public async void CreateUser([FromBody]User user)
+        {
+            db.Users.Add(user);
+            await db.SaveChangesAsync();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
