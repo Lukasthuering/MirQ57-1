@@ -45,9 +45,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete]
-        public void DeleteEvent([FromBody]Event eventParam)
+        public void DeleteEvent(int eventId)
         {
-            var entity = m_UnitOfWork.Events.Get(eventParam.EventID);
+            var entity = m_UnitOfWork.Events.Get(eventId);
             m_UnitOfWork.Events.Remove(entity);
             m_UnitOfWork.Complete();
         }
