@@ -1,0 +1,27 @@
+<form class="container" (ngSubmit)="onSubmit()" [formGroup]="cForm">
+    <div class="form-group">
+        <label for="name">Turniername</label>
+        <input type="text" class="form-control" id="name" formControlName="name" placeholder="Turniername">
+    </div>
+
+    <div class="form-group">
+        <label for="banner">Slogan</label>
+        <input type="text" class="form-control" id="banner" formControlName="banner" placeholder="">
+    </div>
+
+    <div class="form-group">
+        <label for="startDate">Startdatum </label>
+        <input type="date" class="form-control" id="startDate" formControlName="startDate" placeholder="yyyy-mm-dd">
+    </div>
+
+    <div class="form-group">
+        <label for="endDate">Enddatum</label>
+        <input type="date" class="form-control" id="endDate" formControlName="endDate" placeholder="yyyy-mm-dd">
+    </div>
+
+    <div class="form-group">
+        <label for="description">Beschreibung</label>
+        <textarea class="form-control" id="description" rows="3" formControlName="Beschreibung"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Speichern</button>
+</form>
