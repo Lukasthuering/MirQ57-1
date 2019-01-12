@@ -12,7 +12,9 @@
           <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EventDescription" Type="varchar(max)" Nullable="false" />
           <Property Name="EventPLZ" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="EventDateTime" Type="datetime" Nullable="false" />
+          <Property Name="EventStart" Type="datetime" Nullable="false" />
+          <Property Name="EventEnd" Type="datetime" Nullable="true" />
+          <Property Name="IsAllDay" Type="bit" Nullable="true" />
           <Property Name="fk_UserEventHost" Type="int" />
         </EntityType>
         <EntityType Name="User_Participates_Event">
@@ -103,7 +105,9 @@
           <Property Name="EventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EventDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EventPLZ" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EventDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventEnd" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="IsAllDay" Type="Boolean" Nullable="true" />
           <Property Name="fk_UserEventHost" Type="Int32" />
           <NavigationProperty Name="User" Relationship="Self.FK_Events_Users" FromRole="Events" ToRole="Users" />
           <NavigationProperty Name="User_Participates_Event" Relationship="Self.FK_User_Participates_Event_Events" FromRole="Events" ToRole="User_Participates_Event" />
@@ -200,7 +204,9 @@
                 <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
                 <ScalarProperty Name="EventPLZ" ColumnName="EventPLZ" />
-                <ScalarProperty Name="EventDateTime" ColumnName="EventDateTime" />
+                <ScalarProperty Name="EventStart" ColumnName="EventStart" />
+                <ScalarProperty Name="EventEnd" ColumnName="EventEnd" />
+                <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />
                 <ScalarProperty Name="fk_UserEventHost" ColumnName="fk_UserEventHost" />
               </MappingFragment>
             </EntityTypeMapping>

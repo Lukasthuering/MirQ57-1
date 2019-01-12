@@ -12,9 +12,9 @@ namespace WebAPI.Controllers
         private IUnitOfWork m_UnitOfWork = UnitOfWork.UnitOfWork.GetInstance();
 
         [HttpGet]
-        public Event GetEventByDate(DateTime date)
+        public Event GetEventByDate(DateTime startDate, DateTime endDate)
         {
-            return m_UnitOfWork.Events.Find(e => e.EventDateTime == date).First();
+            return m_UnitOfWork.Events.Find(e => e.EventStart == startDate && e.EventEnd == endDate).First();
         }
 
         [HttpGet]

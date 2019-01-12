@@ -208,28 +208,28 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Event.cs">
-      <DependentUpon>MirQ57Database.tt</DependentUpon>
+      <DependentUpon>MIRQ57Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MirQ57Database.Context.cs">
+    <Compile Include="Models\MIRQ57Database.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MirQ57Database.Context.tt</DependentUpon>
+      <DependentUpon>MIRQ57Database.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MirQ57Database.cs">
+    <Compile Include="Models\MIRQ57Database.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MirQ57Database.tt</DependentUpon>
+      <DependentUpon>MIRQ57Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MirQ57Database.Designer.cs">
+    <Compile Include="Models\MIRQ57Database.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MirQ57Database.edmx</DependentUpon>
+      <DependentUpon>MIRQ57Database.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>MirQ57Database.tt</DependentUpon>
+      <DependentUpon>MIRQ57Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User_Participates_Event.cs">
-      <DependentUpon>MirQ57Database.tt</DependentUpon>
+      <DependentUpon>MIRQ57Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EventRepository.cs" />
@@ -247,15 +247,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\MirQ57Database.Context.tt">
+    <Content Include="Models\MIRQ57Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MirQ57Database.edmx</DependentUpon>
-      <LastGenOutput>MirQ57Database.Context.cs</LastGenOutput>
+      <DependentUpon>MIRQ57Database.edmx</DependentUpon>
+      <LastGenOutput>MIRQ57Database.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\MirQ57Database.tt">
+    <Content Include="Models\MIRQ57Database.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MirQ57Database.edmx</DependentUpon>
-      <LastGenOutput>MirQ57Database.cs</LastGenOutput>
+      <DependentUpon>MIRQ57Database.edmx</DependentUpon>
+      <LastGenOutput>MIRQ57Database.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -281,12 +281,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\MirQ57Database.edmx">
+    <EntityDeploy Include="Models\MIRQ57Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MirQ57Database.Designer.cs</LastGenOutput>
+      <LastGenOutput>MIRQ57Database.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\MirQ57Database.edmx.diagram">
-      <DependentUpon>MirQ57Database.edmx</DependentUpon>
+    <Content Include="Models\MIRQ57Database.edmx.diagram">
+      <DependentUpon>MIRQ57Database.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -370,4 +370,11 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  </Target>
 </Project>

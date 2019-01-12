@@ -18,9 +18,9 @@ namespace WebAPI.Controllers
         /// <param name="password">Passwort of user</param>
         /// <returns>Userobject</returns>
         [HttpGet]
-        public User Get([FromBody]User user)
+        public User Get(string username, string password)
         {
-            return m_UnitOfWork.Users.Find(u => u.Username == user.Username && u.Password == user.Password)?.First();
+            return m_UnitOfWork.Users.Find(u => u.Username == username && u.Password == password)?.First();
         }
 
         [HttpPost]

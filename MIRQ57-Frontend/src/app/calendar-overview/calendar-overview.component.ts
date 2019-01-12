@@ -22,6 +22,8 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar';
+import { Router } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
 
 const colors: any = {
   red: {
@@ -45,8 +47,6 @@ const colors: any = {
   styleUrls: ['./calendar-overview.component.css']
 })
 export class CalendarOverviewComponent {
-  @ViewChild('modalContent')
-  modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
 
@@ -54,30 +54,25 @@ export class CalendarOverviewComponent {
 
   viewDate: Date = new Date();
 
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
+      onClick: ({ event }: { event: CalendarEvent<Event> }): void => {
+        this.editEvent(event);
       }
     },
     {
       label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
+      onClick: ({ event }: { event: CalendarEvent<Event> }): void => {
         this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
+        this.deleteEvent(event);
       }
     }
   ];
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
+  events: CalendarEvent<Event>[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
@@ -120,9 +115,9 @@ export class CalendarOverviewComponent {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) {}
+  constructor(private router: Router) {}
 
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+  dayClicked({ date, events }: { date: Date; events: CalendarEvent<Event>[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       this.viewDate = date;
       if (
@@ -143,13 +138,8 @@ export class CalendarOverviewComponent {
   }: CalendarEventTimesChangedEvent): void {
     event.start = newStart;
     event.end = newEnd;
-    this.handleEvent('Dropped or resized', event);
+    // this.handleEvent('Dropped or resized', event);
     this.refresh.next();
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
   }
 
   addEvent(): void {
@@ -165,5 +155,13 @@ export class CalendarOverviewComponent {
       }
     });
     this.refresh.next();
+  }
+
+  editEvent(event: CalendarEvent<Event>):void{
+    this.router.navigate(['event/edit', event]);
+  }
+
+  deleteEvent(event: CalendarEvent<Event>):void{
+    
   }
 }
