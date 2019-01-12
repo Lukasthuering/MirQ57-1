@@ -18,6 +18,9 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfigService } from './services/config.service';
+import { EventService } from './services/event.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     CommonModule,
     FormsModule,
@@ -44,7 +48,10 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     }),
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    ConfigService,
+    EventService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -24,6 +24,8 @@ import {
 } from 'angular-calendar';
 import { Router } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
+import { EventService } from '../services/event.service';
+import { Event } from '../models/event';
 
 const colors: any = {
   red: {
@@ -72,50 +74,22 @@ export class CalendarOverviewComponent {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent<Event>[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    }
-  ];
+  events: CalendarEvent<Event>[] = [];
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private eventService: EventService) {
+    eventService.getAllEvents().subscribe((events) => {
+      events.forEach(e => {
+        console.log("Event:", e);
+        var calendarEvent = this.eventService.toCalendar(e);
+        var completeEvent = this.configUISettings(calendarEvent);
+        this.events.push(completeEvent);
+      });
+      this.refresh.next();
+    });
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent<Event>[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -157,11 +131,23 @@ export class CalendarOverviewComponent {
     this.refresh.next();
   }
 
-  editEvent(event: CalendarEvent<Event>):void{
+  editEvent(event: CalendarEvent<Event>): void {
     this.router.navigate(['event/edit', event]);
   }
 
-  deleteEvent(event: CalendarEvent<Event>):void{
-    
+  deleteEvent(event: CalendarEvent<Event>): void {
+
+  }
+
+  configUISettings(event: CalendarEvent<Event>): CalendarEvent<Event> {
+    event.color = colors.red;
+    event.actions = this.actions;
+
+    event.resizable = {
+      beforeStart: false,
+      afterEnd: false
+    };
+    event.draggable = false;
+    return event;
   }
 }
