@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { Event } from '../models/event';
 import { CalendarEvent } from 'calendar-utils';
@@ -35,8 +35,9 @@ export class EventService {
         return this.http.put<Event>(this.baseUrl, JSON.stringify(eventParam));
     }
 
-    deleteEvent(eventId: number) {
-        return this.http.delete(this.baseUrl + '?id=' + eventId);
+    deleteEvent(eventId: string) {
+        var params = new HttpParams().set('eventId', eventId);
+        return this.http.delete(this.baseUrl, {params});
     }
 
     public toCalendar(event: Event): CalendarEvent<Event>{

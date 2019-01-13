@@ -116,27 +116,13 @@ export class CalendarOverviewComponent {
     this.refresh.next();
   }
 
-  addEvent(): void {
-    this.events.push({
-      title: 'New event',
-      start: startOfDay(new Date()),
-      end: endOfDay(new Date()),
-      color: colors.red,
-      draggable: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      }
-    });
-    this.refresh.next();
-  }
-
   editEvent(event: CalendarEvent<Event>): void {
     this.router.navigate(['event/edit', event]);
   }
 
   deleteEvent(event: CalendarEvent<Event>): void {
-
+    console.log('EventId to delete', event.id);
+    this.eventService.deleteEvent(event.id.toString()).subscribe();
   }
 
   configUISettings(event: CalendarEvent<Event>): CalendarEvent<Event> {
