@@ -14,6 +14,14 @@ import { RegisterComponent } from './register/register.component';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRippleModule,
+  MatRadioModule,
+  MatCheckboxModule
+} from '@angular/material';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -39,6 +47,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     CommonModule,
     FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatRadioModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     NgbModalModule,
     FlatpickrModule.forRoot(),

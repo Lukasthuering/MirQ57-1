@@ -24,7 +24,7 @@ namespace WebAPI.Models
         public string EventDescription { get; set; }
         public string EventPLZ { get; set; }
         public System.DateTime EventStart { get; set; }
-        public Nullable<System.DateTime> EventEnd { get; set; }
+        public System.DateTime EventEnd { get; set; }
         public bool IsAllDay { get; set; }
         public Nullable<int> fk_UserEventHost { get; set; }
     

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { Event } from '../models/event';
 import { CalendarEvent } from 'calendar-utils';
@@ -28,7 +28,14 @@ export class EventService {
     }
 
     createEvent(eventParam: Event) {
-        return this.http.post(this.baseUrl, JSON.stringify(eventParam));
+        var httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/json'
+            })
+          };
+
+        
+        return this.http.post(this.baseUrl, JSON.stringify(eventParam), httpOptions);
     }
 
     updateEvent(eventParam: Event) {

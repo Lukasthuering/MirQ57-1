@@ -116,6 +116,10 @@ export class CalendarOverviewComponent {
     this.refresh.next();
   }
 
+  addEvent(){
+    this.router.navigate(['event/create']);
+  }
+
   editEvent(event: CalendarEvent<Event>): void {
     this.router.navigate(['event/edit', event]);
   }
