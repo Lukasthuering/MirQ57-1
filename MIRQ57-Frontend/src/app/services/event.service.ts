@@ -5,6 +5,12 @@ import { Event } from '../models/event';
 import { CalendarEvent } from 'calendar-utils';
 import { CalendarEventAction } from 'angular-calendar';
 
+const options = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+
 @Injectable({
     providedIn: 'root'
 })
@@ -28,18 +34,11 @@ export class EventService {
     }
 
     createEvent(eventParam: Event) {
-        var httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type':  'application/json'
-            })
-          };
-
-        
-        return this.http.post(this.baseUrl, JSON.stringify(eventParam), httpOptions);
+        return this.http.post(this.baseUrl, JSON.stringify(eventParam), options);
     }
 
     updateEvent(eventParam: Event) {
-        return this.http.put<Event>(this.baseUrl, JSON.stringify(eventParam));
+        return this.http.put<Event>(this.baseUrl, JSON.stringify(eventParam), options);
     }
 
     deleteEvent(eventId: string) {

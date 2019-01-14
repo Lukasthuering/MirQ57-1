@@ -121,7 +121,8 @@ export class CalendarOverviewComponent {
   }
 
   editEvent(event: CalendarEvent<Event>): void {
-    this.router.navigate(['event/edit', event]);
+    console.log("Edit", event.id);
+    this.router.navigate(['event/edit', event.id]);
   }
 
   deleteEvent(event: CalendarEvent<Event>): void {

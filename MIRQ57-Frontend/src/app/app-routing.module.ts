@@ -6,7 +6,6 @@ import { RegisterComponent } from './register/register.component';
 import { EventParticipateComponent } from './event-participate/event-participate.component';
 import { EventViewComponent } from './event-view/event-view.component';
 import { EventEditComponent } from './event-edit/event-edit.component';
-import { EventCreateComponent } from './event-create/event-create.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -14,9 +13,9 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'calendar', component: CalendarOverviewComponent },
   { path: 'event/participate', component: EventParticipateComponent },
-  { path: 'event/view', component: EventViewComponent },
-  { path: 'event/edit', component: EventEditComponent },
-  { path: 'event/create', component: EventCreateComponent },
+  { path: 'event/view:id', component: EventViewComponent },
+  { path: 'event/edit/:id', component: EventEditComponent  },
+  { path: 'event/create', component: EventEditComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

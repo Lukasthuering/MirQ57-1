@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { CalendarOverviewComponent } from './calendar-overview/calendar-overview.component';
-import { EventCreateComponent } from './event-create/event-create.component';
 import { EventViewComponent } from './event-view/event-view.component';
 import { EventEditComponent } from './event-edit/event-edit.component';
 import { EventParticipateComponent } from './event-participate/event-participate.component';
@@ -35,7 +34,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     AppComponent,
     LoginComponent,
     CalendarOverviewComponent,
-    EventCreateComponent,
     EventViewComponent,
     EventEditComponent,
     EventParticipateComponent,

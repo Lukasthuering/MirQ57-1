@@ -1,14 +1,36 @@
-<p>Edit event information</p>
-<!--Get event informations-->
-<form>
-  Event Name:<br>
-  <input type="text" name="eventname"><br>
-  Event beschreibung:<br>
-  <input type="text" name="eventdescription"><br>
-  Event ZIP Code<br>
-  <input type="text" name="eventzip"><br>
-  Date:<br>
-   <input type="date" name="eventdate" placeholder="DD:MM:YYYY"><br>
-<button name="save">Save changes</button> <!--Save changes of event to Database-->
-<button name="delete">Delete event</button> <!--Delete event data from database-->
+<h1>Event {{action}}</h1>
+
+<form (ngSubmit)="onSubmit()" #eventForm="ngForm">
+  <mat-form-field>
+    <input matInput placeholder="Description" id="eventDescription" name="eventDescription" [(ngModel)]="event.EventDescription">
+    <mat-hint align="end">Required</mat-hint><br>
+  </mat-form-field><br>
+  <mat-error *ngIf="eventDescriptionError">Description is required</mat-error>
+  
+  <mat-form-field>
+    <input matInput placeholder="Zip-code" id="eventPlz" name="eventPlz" [(ngModel)]="event.EventPLZ">
+    <mat-hint align="end">Not more than 10 characters</mat-hint>
+  </mat-form-field><br>
+  <mat-error *ngIf="eventPlzRequiredError">Zip-code is required</mat-error>
+  <mat-error *ngIf="eventPlzMaxLengthError">You have more than 10 characters</mat-error>
+
+  <mat-form-field>
+    <label>Start date</label>
+    <input matInput type="datetime-local" name="eventStartDate" id="eventStartDate" [(ngModel)]="event.EventStart">
+    <mat-hint align="end">Required</mat-hint>
+  </mat-form-field><br>
+  <mat-error *ngIf="eventStartRequiredError">Start date is required</mat-error>
+
+  <mat-form-field>
+    <label>End date</label>
+    <input matInput type="datetime-local" name="eventEndDate" id="eventEndDate" [(ngModel)]="event.EventEnd">
+    <mat-hint align="end">Required</mat-hint>
+  </mat-form-field><br>
+  <mat-error *ngIf="eventEndRequiredError">End date is required</mat-error>
+
+
+  <mat-checkbox [(ngModel)]="event.IsAllDay" name="eventIsAllDay" id="eventIsAllDay">All day event</mat-checkbox>
+  <br>
+
+  <button type="submit" class="btn btn-success">Submit</button>
 </form>
