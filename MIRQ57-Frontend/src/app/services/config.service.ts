@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   })
 export class ConfigService {
     baseUrl = "http://localhost:59887/api";
-    responseUrl = "teams";
+    responseUrl = "responses";
     userUrl = "users";
     eventUrl = "events";
   

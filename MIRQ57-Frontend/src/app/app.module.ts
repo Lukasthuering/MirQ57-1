@@ -28,6 +28,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigService } from './services/config.service';
 import { EventService } from './services/event.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ResponseService } from './services/response.service';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   providers: [
     ConfigService,
     EventService,
+    ResponseService,
   ],
   bootstrap: [AppComponent]
 })

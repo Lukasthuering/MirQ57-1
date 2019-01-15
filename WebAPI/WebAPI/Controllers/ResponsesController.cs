@@ -10,9 +10,9 @@ namespace WebAPI.Controllers
         private IUnitOfWork m_UnitOfWork = UnitOfWork.UnitOfWork.GetInstance();
 
         [HttpGet]
-        public IEnumerable<User_Participates_Event> GetResponsesByEventAndUser([FromBody]User_Participates_Event response)
+        public IEnumerable<User_Participates_Event> GetResponsesByEventAndUser(int userId, int eventId)
         {
-            return m_UnitOfWork.Responses.Find(r => r.fk_EventID == response.fk_EventID && r.fk_UserID == response.fk_UserID);
+            return m_UnitOfWork.Responses.Find(r => r.fk_EventID == userId && r.fk_UserID == userId);
         }
 
         [HttpPost]

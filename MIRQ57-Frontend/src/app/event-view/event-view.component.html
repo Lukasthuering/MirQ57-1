@@ -1,3 +1,9 @@
-<p>
-  event-view works!
-</p>
+<h1>{{event.EventDescription}}</h1>
+<div><label>Location:</label> {{event.EventPLZ}}</div>
+<div><label>Start date:</label> {{event.EventStart | date:'medium'}}</div>
+<div><label>End date:</label> {{event.EventStart | date: 'medium'}}</div>
+<div><label>All day event:</label> {{event.IsAllDay}}</div>
+
+<br>
+<h3>Will you attend?</h3>
+<div class="btn btn-primary" (click)="sendResponse(response)">Yes</div><div style="margin-left: 2em;" class="btn btn-secondary" (click)="sendResponse(response)">No</div>

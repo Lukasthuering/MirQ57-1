@@ -13,7 +13,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'calendar', component: CalendarOverviewComponent },
   { path: 'event/participate', component: EventParticipateComponent },
-  { path: 'event/view:id', component: EventViewComponent },
+  { path: 'event/view/:id', component: EventViewComponent },
   { path: 'event/edit/:id', component: EventEditComponent  },
   { path: 'event/create', component: EventEditComponent },
 

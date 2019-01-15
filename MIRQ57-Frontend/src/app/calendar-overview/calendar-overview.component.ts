@@ -120,6 +120,10 @@ export class CalendarOverviewComponent {
     this.router.navigate(['event/create']);
   }
 
+  showEventDetails(event: CalendarEvent<Event>){
+    this.router.navigate(["event/view", event.id]);
+  }
+
   editEvent(event: CalendarEvent<Event>): void {
     console.log("Edit", event.id);
     this.router.navigate(['event/edit', event.id]);
