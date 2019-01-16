@@ -20,7 +20,7 @@ export class ResponseService {
         this.baseUrl = config.baseUrl + '/' + config.responseUrl
     }
 
-    getResponseByEventAndUser(userId: number, eventId: number){
+    getResponseByEventAndUser(userId: string, eventId: number){
         return this.http.get<Response>(this.baseUrl + '?userId='+userId+'&eventId='+eventId);
     }
 

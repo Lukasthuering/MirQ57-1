@@ -36,6 +36,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public void CreateUser([FromBody]User user)
         {
+            user.UserID = Guid.NewGuid();
             user.Password = CryptoHelper.HashPassword(user.Password);
             m_UnitOfWork.Users.Add(user);
             m_UnitOfWork.Complete();

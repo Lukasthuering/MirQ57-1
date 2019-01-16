@@ -21,7 +21,7 @@ namespace WebAPI.Models
             this.User_Participates_Event = new HashSet<User_Participates_Event>();
         }
     
-        public int UserID { get; set; }
+        public Guid UserID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Prename { get; set; }

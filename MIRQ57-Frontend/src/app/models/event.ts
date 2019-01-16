@@ -5,5 +5,5 @@ export class Event{
     EventStart: Date;
     EventEnd: Date;
     IsAllDay: boolean;
-    fk_UserEventHost: number;
+    fk_UserEventHost: string;
 }

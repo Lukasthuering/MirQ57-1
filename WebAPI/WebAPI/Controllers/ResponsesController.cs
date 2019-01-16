@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using WebAPI.Models;
@@ -11,9 +12,9 @@ namespace WebAPI.Controllers
         private IUnitOfWork m_UnitOfWork = UnitOfWork.UnitOfWork.GetInstance();
 
         [HttpGet]
-        public User_Participates_Event GetResponseByEventAndUser(int userId, int eventId)
+        public User_Participates_Event GetResponseByEventAndUser(Guid userId, int eventId)
         {
-            var responses = m_UnitOfWork.Responses.Find(r => r.fk_EventID == userId && r.fk_UserID == userId);
+            var responses = m_UnitOfWork.Responses.Find(r => r.fk_EventID == eventId && r.fk_UserID == userId);
             if(responses != null && responses.Count() > 0)
             {                
                 return responses.First();
@@ -27,15 +28,15 @@ namespace WebAPI.Controllers
             var userReturnList = new List<KeyValuePair<User, bool?>>();
 
             var responses = m_UnitOfWork.Responses.Find(r => r.fk_EventID == eventId).ToArray();
-            int[] responsesId = responses.Select(r => r.fk_UserID).ToArray();
+            Guid[] responsesId = responses.Select(r => r.fk_UserID).ToArray();
 
             // Get participants
-            int[] participantUserIds = responses.Where(r => r.Participates).Select(r => r.fk_UserID)?.ToArray();
+            Guid[] participantUserIds = responses.Where(r => r.Participates).Select(r => r.fk_UserID)?.ToArray();
             User[] participants = m_UnitOfWork.Users.Find(u => participantUserIds.Contains(u.UserID))?.ToArray();
             userReturnList.AddRange(GetKeyValueFromUser(participants, true));
 
             // Get absentees
-            int[] absenteeUserIds = responses.Where(r => !r.Participates).Select(r => r.fk_UserID).ToArray();
+            Guid[] absenteeUserIds = responses.Where(r => !r.Participates).Select(r => r.fk_UserID).ToArray();
             User[] absentees = m_UnitOfWork.Users.Find(u => absenteeUserIds.Contains(u.UserID)).ToArray();
             userReturnList.AddRange(GetKeyValueFromUser(absentees, false));
 

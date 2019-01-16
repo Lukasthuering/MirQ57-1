@@ -15,7 +15,7 @@
           <Property Name="EventStart" Type="datetime" Nullable="false" />
           <Property Name="EventEnd" Type="datetime" Nullable="true" />
           <Property Name="IsAllDay" Type="bit" Nullable="true" />
-          <Property Name="fk_UserEventHost" Type="int" />
+          <Property Name="fk_UserEventHost" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="User_Participates_Event">
           <Key>
@@ -23,14 +23,14 @@
           </Key>
           <Property Name="ParticipationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fk_EventID" Type="int" Nullable="false" />
-          <Property Name="fk_UserID" Type="int" Nullable="false" />
+          <Property Name="fk_UserID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Participates" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="Prename" Type="varchar" MaxLength="50" Nullable="false" />
@@ -108,7 +108,7 @@
           <Property Name="EventStart" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EventEnd" Type="DateTime" Nullable="true" Precision="3" />
           <Property Name="IsAllDay" Type="Boolean" Nullable="true" />
-          <Property Name="fk_UserEventHost" Type="Int32" />
+          <Property Name="fk_UserEventHost" Type="Guid" />
           <NavigationProperty Name="User" Relationship="Self.FK_Events_Users" FromRole="Events" ToRole="Users" />
           <NavigationProperty Name="User_Participates_Event" Relationship="Self.FK_User_Participates_Event_Events" FromRole="Events" ToRole="User_Participates_Event" />
         </EntityType>
@@ -118,7 +118,7 @@
           </Key>
           <Property Name="ParticipationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fk_EventID" Type="Int32" Nullable="false" />
-          <Property Name="fk_UserID" Type="Int32" Nullable="false" />
+          <Property Name="fk_UserID" Type="Guid" Nullable="false" />
           <Property Name="Participates" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Event" Relationship="Self.FK_User_Participates_Event_Events" FromRole="User_Participates_Event" ToRole="Events" />
           <NavigationProperty Name="User" Relationship="Self.FK_User_Participates_Event_Users" FromRole="User_Participates_Event" ToRole="Users" />
@@ -127,7 +127,7 @@
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Prename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />

@@ -16,7 +16,7 @@ namespace WebAPI.Models
     {
         public int ParticipationID { get; set; }
         public int fk_EventID { get; set; }
-        public int fk_UserID { get; set; }
+        public Guid fk_UserID { get; set; }
         public bool Participates { get; set; }
     
         public virtual Event Event { get; set; }

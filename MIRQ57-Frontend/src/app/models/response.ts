@@ -3,7 +3,7 @@ import { User } from './user';
 export class Response{
     ParticipationID:number;
     fk_EventID: number;
-    fk_UserID: number;
+    fk_UserID: string;
     Participates: boolean;
 }
 

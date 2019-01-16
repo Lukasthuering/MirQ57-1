@@ -26,7 +26,7 @@ namespace WebAPI.Models
         public System.DateTime EventStart { get; set; }
         public System.DateTime EventEnd { get; set; }
         public bool IsAllDay { get; set; }
-        public Nullable<int> fk_UserEventHost { get; set; }
+        public Nullable<Guid> fk_UserEventHost { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

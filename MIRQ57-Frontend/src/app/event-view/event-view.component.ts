@@ -31,7 +31,7 @@ export class EventViewComponent implements OnInit {
             this.event = event;
           }
         });
-        this.responseService.getResponseByEventAndUser(+getCookie(userCookieName), this.eventId).subscribe(resp => {
+        this.responseService.getResponseByEventAndUser(getCookie(userCookieName), this.eventId).subscribe(resp => {
           console.log("Recieved", resp);
           if(resp){
             console.log("Response found", resp);
@@ -39,7 +39,7 @@ export class EventViewComponent implements OnInit {
           }
           else{
             this.response.fk_EventID = this.eventId;
-            this.response.fk_UserID = +getCookie(userCookieName);
+            this.response.fk_UserID = getCookie(userCookieName);
             console.log("Response not found", this.response);
           }
         });

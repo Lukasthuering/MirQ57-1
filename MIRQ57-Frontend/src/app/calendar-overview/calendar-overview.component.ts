@@ -137,7 +137,7 @@ export class CalendarOverviewComponent {
 
   configUISettings(event: CalendarEvent<Event>): CalendarEvent<Event> {
     event.color = colors.red;
-    if(event.meta.fk_UserEventHost === +getCookie(userCookieName)){
+    if(event.meta.fk_UserEventHost === getCookie(userCookieName)){
       event.actions = this.actions;
     }
 
