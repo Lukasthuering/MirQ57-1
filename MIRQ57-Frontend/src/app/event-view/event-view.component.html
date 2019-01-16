@@ -7,3 +7,5 @@
 <br>
 <h3>Will you attend?</h3>
 <div [ngClass]="setClassForYes()" class="btn btn-primary" (click)="sendResponse(true)">Yes</div><div style="margin-left: 2em;" class="btn btn-secondary" (click)="sendResponse(false)" [ngClass]="setClassForNo()">No</div>
+
+<app-event-participate [eventId]="event.EventId"></app-event-participate>

@@ -13,8 +13,33 @@ namespace WebAPI.Controllers
         [HttpGet]
         public User_Participates_Event GetResponseByEventAndUser(int userId, int eventId)
         {
-            IEnumerable<User_Participates_Event> responses = m_UnitOfWork.Responses.Find(r => r.fk_EventID == userId && r.fk_UserID == userId);
-            return responses.FirstOrDefault();
+            var response = m_UnitOfWork.Responses.Find(r => r.fk_EventID == userId && r.fk_UserID == userId).First();
+            return response;
+        }
+
+        [HttpGet]
+        public IEnumerable<KeyValuePair<User, bool?>> GetUserResponsesByEvent(int eventId)
+        {
+            var userReturnList = new List<KeyValuePair<User, bool?>>();
+
+            var responses = m_UnitOfWork.Responses.Find(r => r.fk_EventID == eventId);
+            int[] responsesId = responses.Select(r => r.fk_UserID).ToArray();
+
+            // Get participants
+            int[] participantUserIds = responses.Where(r => r.Participates).Select(r => r.fk_UserID)?.ToArray();
+            User[] participants = m_UnitOfWork.Users.Find(u => participantUserIds.Contains(u.UserID))?.ToArray();
+            userReturnList.AddRange(GetKeyValueFromUser(participants, true));
+
+            // Get absentees
+            int[] absenteeUserIds = responses.Where(r => !r.Participates).Select(r => r.fk_UserID).ToArray();
+            User[] absentees = m_UnitOfWork.Users.Find(u => absenteeUserIds.Contains(u.UserID)).ToArray();
+            userReturnList.AddRange(GetKeyValueFromUser(absentees, false));
+
+            // Get not set users
+            User[] undefinedUsers = m_UnitOfWork.Users.Find(u => !responsesId.Contains(u.UserID)).ToArray();
+            userReturnList.AddRange(GetKeyValueFromUser(absentees, null));
+
+            return userReturnList;
         }
 
         [HttpPost]
@@ -38,6 +63,16 @@ namespace WebAPI.Controllers
                 m_UnitOfWork.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private List<KeyValuePair<User, bool?>> GetKeyValueFromUser(User[] keys, bool? value)
+        {
+            var list = new List<KeyValuePair<User, bool?>>();
+            foreach(var key in keys)
+            {
+                list.Add(new KeyValuePair<User, bool?>(key, value));
+            }
+            return list;
         }
     }
 }

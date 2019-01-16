@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from './config.service';
-import { Response } from '../models/response';
+import { Response, UserResponse } from '../models/response';
+import { User } from '../models/user';
 
 const options = {
     headers: new HttpHeaders({
@@ -29,5 +30,9 @@ export class ResponseService {
 
     updateResponse(response: Response){
         return this.http.put<Response>(this.baseUrl, JSON.stringify(response), options);
+    }
+
+    getResponsesByEvent(eventId: number){
+        return this.http.get<UserResponse[]>(this.baseUrl + '?eventId='+eventId);
     }
 }

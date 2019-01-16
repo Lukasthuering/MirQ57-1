@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Entity.Migrations;
 using WebAPI.Models;
+using System.Data.Entity;
 
 namespace WebAPI.Repositories
 {
@@ -38,11 +39,9 @@ namespace WebAPI.Repositories
             // this on your own.
             if (orderBy != null)
             {
-                IQueryable<TEntity> query = Context.Set<TEntity>();
+                DbSet<TEntity> dbSet = Context.Set<TEntity>();
+                IQueryable<TEntity> query = dbSet;
                 return orderBy(query).ToList();
-                //DbSet<TEntity> dbSet = Context.Set<TEntity>();
-                //IQueryable<TEntity> query = dbSet;
-                //return orderBy(query).ToList();
             }
             else
             {

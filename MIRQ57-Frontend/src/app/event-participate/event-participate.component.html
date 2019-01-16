@@ -1,16 +1,20 @@
-<p>Teilnahme</p>
-<form>
-  First name:<br>
-  <input type="text" name="firstname"><br>
-  Last name:<br>
-  <input type="text" name="lastname"><br>
-  Date:<br>
-   <input type="date" name="date" placeholder="DD:MM:YYYY"><br>
-Select event <br>
-<select>
-  <!--Get Events-->
-</select><br>
-  <input type="radio" name="yes" value="true" checked>I'll take part<br>
-  <input type="radio" name="no" value="false">I wont take part<br>
-<button name="submit">Submit</button> <!--save changes to database-->
-</form>
+<h2>Participants</h2>
+<ul>
+  <li *ngFor="let part of participants">
+    {{part.Key.Prename}} {{part.Key.Surname}}
+  </li>
+</ul>
+
+<h2>Absentees</h2>
+<ul>
+  <li *ngFor="let abs of absentees">
+    {{abs.Key.Prename}} {{abs.Key.Surname}}
+  </li>
+</ul>
+
+<h2>Not responded</h2>
+<ul>
+  <li *ngFor="let nor of notResponded">
+    {{nor.Key.Prename}} {{nor.Key.Surname}}
+  </li>
+</ul>

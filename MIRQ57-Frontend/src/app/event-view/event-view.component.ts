@@ -4,6 +4,7 @@ import { Response } from '../models/response';
 import { EventService } from '../services/event.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ResponseService } from '../services/response.service';
+import { getCookie, userCookieName } from '../utilities/cookie.utils';
 
 @Component({
   selector: 'app-event-view',
@@ -29,7 +30,7 @@ export class EventViewComponent implements OnInit {
             this.event = event;
           }
         });
-        this.responseService.getResponseByEventAndUser(1, id).subscribe(resp => {
+        this.responseService.getResponseByEventAndUser(this.event.EventID, id).subscribe(resp => {
           console.log("Recieved", resp);
           if(resp){
             console.log("Response found", resp);
@@ -37,7 +38,7 @@ export class EventViewComponent implements OnInit {
           }
           else{
             this.response.fk_EventID = id;
-            this.response.fk_UserID = 1;
+            this.response.fk_UserID = +getCookie(userCookieName);
             console.log("Response not found", this.response);
           }
         });
