@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using WebAPI.Helpers;
 using WebAPI.Models;
 using WebAPI.UnitOfWork;
 
@@ -18,19 +19,24 @@ namespace WebAPI.Controllers
         /// <param name="password">Passwort of user</param>
         /// <returns>Userobject</returns>
         [HttpGet]
-        public User Get(string username, string password)
+        public User GetUserByLogin(string username, string password)
         {
-            var users = m_UnitOfWork.Users.Find(u => u.Username == username && u.Password == password);
-            if(users.Count() > 0)
+            var users = m_UnitOfWork.Users.Find(u => u.Username == username)?.ToArray();
+            foreach(var user in users)
             {
-                return users.First();
+                if(CryptoHelper.ValidatePassword(password, user.Password))
+                {
+                    return user;
+                }
             }
+
             return null;
         }
 
         [HttpPost]
         public void CreateUser([FromBody]User user)
         {
+            user.Password = CryptoHelper.HashPassword(user.Password);
             m_UnitOfWork.Users.Add(user);
             m_UnitOfWork.Complete();
         }
