@@ -13,8 +13,12 @@ namespace WebAPI.Controllers
         [HttpGet]
         public User_Participates_Event GetResponseByEventAndUser(int userId, int eventId)
         {
-            var response = m_UnitOfWork.Responses.Find(r => r.fk_EventID == userId && r.fk_UserID == userId).First();
-            return response;
+            var responses = m_UnitOfWork.Responses.Find(r => r.fk_EventID == userId && r.fk_UserID == userId);
+            if(responses != null && responses.Count() > 0)
+            {                
+                return responses.First();
+            }
+            return null;
         }
 
         [HttpGet]
@@ -22,7 +26,7 @@ namespace WebAPI.Controllers
         {
             var userReturnList = new List<KeyValuePair<User, bool?>>();
 
-            var responses = m_UnitOfWork.Responses.Find(r => r.fk_EventID == eventId);
+            var responses = m_UnitOfWork.Responses.Find(r => r.fk_EventID == eventId).ToArray();
             int[] responsesId = responses.Select(r => r.fk_UserID).ToArray();
 
             // Get participants
@@ -37,7 +41,7 @@ namespace WebAPI.Controllers
 
             // Get not set users
             User[] undefinedUsers = m_UnitOfWork.Users.Find(u => !responsesId.Contains(u.UserID)).ToArray();
-            userReturnList.AddRange(GetKeyValueFromUser(absentees, null));
+            userReturnList.AddRange(GetKeyValueFromUser(undefinedUsers, null));
 
             return userReturnList;
         }
