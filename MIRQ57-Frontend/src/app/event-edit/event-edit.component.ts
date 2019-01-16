@@ -16,8 +16,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
 
   event: Event = new Event();
   eventDescriptionError: boolean = false;
-  eventPlzRequiredError: boolean = false;
-  eventPlzMaxLengthError: boolean = false;
+  eventLocationRequiredError: boolean = false;
   eventStartRequiredError: boolean = false;
   eventEndRequiredError: boolean = false;
   action: string;
@@ -65,15 +64,10 @@ export class EventEditComponent implements OnInit, OnDestroy {
 
   isFormValid(): boolean {
     this.eventDescriptionError = !this.event.EventDescription;
-    this.eventPlzRequiredError = !this.event.EventPLZ;
+    this.eventLocationRequiredError = !this.event.EventLocation;
     this.eventStartRequiredError = !this.event.EventStart;
     this.eventEndRequiredError = !this.event.EventEnd;
 
-    this.eventPlzMaxLengthError = false;
-    if (this.event.EventPLZ) {
-      this.eventPlzMaxLengthError = this.event.EventPLZ.length > 11;
-    }
-
-    return !(this.eventDescriptionError || this.eventPlzRequiredError || this.eventPlzMaxLengthError || this.eventStartRequiredError || this.eventEndRequiredError);
+    return !(this.eventDescriptionError || this.eventLocationRequiredError || this.eventStartRequiredError || this.eventEndRequiredError);
   }
 }

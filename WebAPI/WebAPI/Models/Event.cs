@@ -22,7 +22,7 @@ namespace WebAPI.Models
     
         public int EventID { get; set; }
         public string EventDescription { get; set; }
-        public string EventPLZ { get; set; }
+        public string EventLocation { get; set; }
         public System.DateTime EventStart { get; set; }
         public System.DateTime EventEnd { get; set; }
         public bool IsAllDay { get; set; }

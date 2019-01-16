@@ -11,7 +11,7 @@
           </Key>
           <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EventDescription" Type="varchar(max)" Nullable="false" />
-          <Property Name="EventPLZ" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="EventLocation" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="EventStart" Type="datetime" Nullable="false" />
           <Property Name="EventEnd" Type="datetime" Nullable="true" />
           <Property Name="IsAllDay" Type="bit" Nullable="true" />
@@ -104,7 +104,7 @@
           </Key>
           <Property Name="EventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EventDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EventPLZ" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EventLocation" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EventStart" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EventEnd" Type="DateTime" Nullable="true" Precision="3" />
           <Property Name="IsAllDay" Type="Boolean" Nullable="true" />
@@ -203,7 +203,7 @@
               <MappingFragment StoreEntitySet="Events">
                 <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
-                <ScalarProperty Name="EventPLZ" ColumnName="EventPLZ" />
+                <ScalarProperty Name="EventLocation" ColumnName="EventLocation" />
                 <ScalarProperty Name="EventStart" ColumnName="EventStart" />
                 <ScalarProperty Name="EventEnd" ColumnName="EventEnd" />
                 <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />

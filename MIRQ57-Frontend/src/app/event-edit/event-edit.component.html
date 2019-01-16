@@ -8,11 +8,10 @@
   <mat-error *ngIf="eventDescriptionError">Description is required</mat-error>
   
   <mat-form-field>
-    <input matInput placeholder="Zip-code" id="eventPlz" name="eventPlz" [(ngModel)]="event.EventPLZ">
-    <mat-hint align="end">Not more than 10 characters</mat-hint>
+    <input matInput placeholder="Location" id="eventLocation" name="eventLocation" [(ngModel)]="event.EventLocation">
+    <mat-hint align="end">Required</mat-hint>
   </mat-form-field><br>
-  <mat-error *ngIf="eventPlzRequiredError">Zip-code is required</mat-error>
-  <mat-error *ngIf="eventPlzMaxLengthError">You have more than 10 characters</mat-error>
+  <mat-error *ngIf="eventLocationRequiredError">Location is required</mat-error>
 
   <mat-form-field>
     <label>Start date</label>
