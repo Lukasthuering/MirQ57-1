@@ -12,6 +12,7 @@ import { getCookie, userCookieName } from '../utilities/cookie.utils';
   styleUrls: ['./event-view.component.css']
 })
 export class EventViewComponent implements OnInit {
+  eventId: number;
   event: Event = new Event();
   response: Response = new Response();
   sub: any;
@@ -22,22 +23,22 @@ export class EventViewComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute) {
     this.sub = route.params.subscribe(params => {
-      var id = +params['id'];
-      if (id) {
-        this.eventService.getEventById(id).subscribe(event => {
+      this.eventId = +params['id'];
+      if (this.eventId) {
+        this.eventService.getEventById(this.eventId).subscribe(event => {
           if(event.EventID){
             console.log("Event found", event);
             this.event = event;
           }
         });
-        this.responseService.getResponseByEventAndUser(this.event.EventID, id).subscribe(resp => {
+        this.responseService.getResponseByEventAndUser(+getCookie(userCookieName), this.eventId).subscribe(resp => {
           console.log("Recieved", resp);
           if(resp){
             console.log("Response found", resp);
             this.response = resp;
           }
           else{
-            this.response.fk_EventID = id;
+            this.response.fk_EventID = this.eventId;
             this.response.fk_UserID = +getCookie(userCookieName);
             console.log("Response not found", this.response);
           }
