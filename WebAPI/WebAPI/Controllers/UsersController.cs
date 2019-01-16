@@ -20,7 +20,12 @@ namespace WebAPI.Controllers
         [HttpGet]
         public User Get(string username, string password)
         {
-            return m_UnitOfWork.Users.Find(u => u.Username == username && u.Password == password)?.First();
+            var users = m_UnitOfWork.Users.Find(u => u.Username == username && u.Password == password);
+            if(users.Count() > 0)
+            {
+                return users.First();
+            }
+            return null;
         }
 
         [HttpPost]

@@ -29,6 +29,7 @@ import { ConfigService } from './services/config.service';
 import { EventService } from './services/event.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ResponseService } from './services/response.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ResponseService } from './services/response.service';
     ConfigService,
     EventService,
     ResponseService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

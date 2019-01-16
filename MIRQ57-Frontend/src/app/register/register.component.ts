@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-register',
@@ -12,10 +14,12 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
+    user: User = new User();
 
     constructor(
         private formBuilder: FormBuilder,
-        private router: Router) { }
+        private router: Router,
+        private userService: UserService) { }
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
@@ -29,7 +33,7 @@ export class RegisterComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
 
-    onSubmit() {
+    onSubmit(user: User) {
         this.submitted = true;
 
         // stop here if form is invalid
@@ -38,7 +42,11 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
+        
         //register
+        this.userService.createUser(user).subscribe(() => {
+            this.router.navigate(['login']);
+        });
     }
 }
 
