@@ -1,3 +1,8 @@
 label {
     font-weight: bold;
 }
+
+.selectedResponse{
+    font-weight: bold;
+    border: 1px solid black;
+}

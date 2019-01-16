@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using WebAPI.Models;
 using WebAPI.UnitOfWork;
@@ -10,9 +11,10 @@ namespace WebAPI.Controllers
         private IUnitOfWork m_UnitOfWork = UnitOfWork.UnitOfWork.GetInstance();
 
         [HttpGet]
-        public IEnumerable<User_Participates_Event> GetResponsesByEventAndUser(int userId, int eventId)
+        public User_Participates_Event GetResponseByEventAndUser(int userId, int eventId)
         {
-            return m_UnitOfWork.Responses.Find(r => r.fk_EventID == userId && r.fk_UserID == userId);
+            IEnumerable<User_Participates_Event> responses = m_UnitOfWork.Responses.Find(r => r.fk_EventID == userId && r.fk_UserID == userId);
+            return responses.FirstOrDefault();
         }
 
         [HttpPost]

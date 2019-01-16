@@ -24,10 +24,22 @@ export class EventViewComponent implements OnInit {
       var id = +params['id'];
       if (id) {
         this.eventService.getEventById(id).subscribe(event => {
-          this.event = event;
+          if(event.EventID){
+            console.log("Event found", event);
+            this.event = event;
+          }
         });
         this.responseService.getResponseByEventAndUser(1, id).subscribe(resp => {
-          this.response = resp;
+          console.log("Recieved", resp);
+          if(resp){
+            console.log("Response found", resp);
+            this.response = resp;
+          }
+          else{
+            this.response.fk_EventID = id;
+            this.response.fk_UserID = 1;
+            console.log("Response not found", this.response);
+          }
         });
       }
     })
@@ -37,7 +49,22 @@ export class EventViewComponent implements OnInit {
   }
 
 
-  sendResponse(response: Response){
-    this.responseService.updateResponse(response).subscribe();
+  sendResponse(response: boolean){
+    console.log(response);
+    this.response.Participates = response;
+    this.responseService.updateResponse(this.response).subscribe();
+    this.router.navigate(['calendar']);
+  }
+
+  setClassForYes(){
+    return {
+      selectedResponse: this.response.Participates
+    }
+  }
+
+  setClassForNo(){
+    return{
+      selectedResponse: !this.response.Participates
+    }
   }
 }
