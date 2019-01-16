@@ -4,14 +4,15 @@
 
 # MIRQ57
 
-MIRQ57 is a presence manager. It can be used to make a training schedule for a sport club. Locations, fields, trainers, teams and restrictions can be added. After that automatically a schedule is generated if possible
+MIRQ57 is a presence manager. It displays all events created in a calendar overview. Each user then has the opportunity to register an event acception or a rejection. In the end, your manager can have a look at the event overview to plan the line up.
 
-## How to develop
+## Getting started
 
-* Clone project to your machine
-* Open the project folder with your favourite code editor.
-* Add Angular CLI to the project
-* Start ng-serve
+1. [Create](./MirQ57.sql) the database on your MS SQL-Server 
+
+2. [Start](./WebAPI/WebAPI.sln) the REST API in Visual Studio on a IIS
+
+3. [Serve](./MIRQ57-Frontend) the frontend via Angular CLI
 
 
 ## License
