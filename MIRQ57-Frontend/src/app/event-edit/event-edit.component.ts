@@ -4,6 +4,7 @@ import { EventService } from '../services/event.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { getCookie, userCookieName } from '../utilities/cookie.utils';
 
 @Component({
   selector: 'app-event-edit',
@@ -28,8 +29,12 @@ export class EventEditComponent implements OnInit, OnDestroy {
     this.sub = route.params.subscribe(params => {
       var id = +params['id'];
       if (id) {
-
         this.eventService.getEventById(id).subscribe(event => {
+          // Only event hoster can edit an event
+          if(event.fk_UserEventHost !== +getCookie(userCookieName)){
+            this.router.navigate(['calendar']);
+          }
+
           this.event = event;
           this.action = "editing";
         });
@@ -53,6 +58,7 @@ export class EventEditComponent implements OnInit, OnDestroy {
     var isValid = this.isFormValid();
     console.log("valid", isValid);
     if (isValid) {
+      this.event.fk_UserEventHost = +getCookie(userCookieName);
       this.eventService.updateEvent(this.event).subscribe(e => this.router.navigate(['calendar']));
     }
   }

@@ -26,6 +26,7 @@ import { Router } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/event';
+import { getCookie, userCookieName } from '../utilities/cookie.utils';
 
 const colors: any = {
   red: {
@@ -136,7 +137,9 @@ export class CalendarOverviewComponent {
 
   configUISettings(event: CalendarEvent<Event>): CalendarEvent<Event> {
     event.color = colors.red;
-    event.actions = this.actions;
+    if(event.meta.fk_UserEventHost === +getCookie(userCookieName)){
+      event.actions = this.actions;
+    }
 
     event.resizable = {
       beforeStart: false,
