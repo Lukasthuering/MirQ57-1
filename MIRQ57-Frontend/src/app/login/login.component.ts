@@ -56,11 +56,13 @@ export class LoginComponent implements OnInit {
             console.log("loading user");
             if(user && user.UserID){
                 setCookie(userCookieName, user.UserID.toString());
+                this.loading = false;
                 this.router.navigate(['calendar']);
             }
             else{
                 console.log("user not found");
                 this.userNotFound = true;
+                this.loading = false;
                 this.f.password.setErrors({valid: false})
             }
         })

@@ -24,6 +24,10 @@ export class UserService {
         return this.http.get<User>(this.baseUrl + '?username='+username+'&password='+password);
     }
 
+    getUserById(userId: string){
+        return this.http.get<User>(this.baseUrl + '?userId='+userId);
+    }
+
     createUser(user: User){
         return this.http.post(this.baseUrl, JSON.stringify(user), options);
     }

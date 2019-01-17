@@ -30,6 +30,7 @@ import { EventService } from './services/event.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ResponseService } from './services/response.service';
 import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { UserService } from './services/user.service';
     ConfigService,
     EventService,
     ResponseService,
-    UserService
+    UserService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

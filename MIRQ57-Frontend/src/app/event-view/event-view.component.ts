@@ -5,6 +5,7 @@ import { EventService } from '../services/event.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ResponseService } from '../services/response.service';
 import { getCookie, userCookieName } from '../utilities/cookie.utils';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-event-view',
@@ -21,8 +22,10 @@ export class EventViewComponent implements OnInit {
   constructor(private eventService: EventService,
     private responseService: ResponseService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private authService: AuthService) {
     this.sub = route.params.subscribe(params => {
+      this.authService.checkLogin();
       this.eventId = +params['id'];
       if (this.eventId) {
         this.eventService.getEventById(this.eventId).subscribe(event => {

@@ -33,6 +33,15 @@ namespace WebAPI.Controllers
             return null;
         }
 
+        public User GetUserById(Guid userId)
+        {
+            if(userId != null && userId != Guid.Empty)
+            {
+                return m_UnitOfWork.Users.Find(u => u.UserID == userId)?.Single();
+            }
+            return null;
+        }
+
         [HttpPost]
         public void CreateUser([FromBody]User user)
         {

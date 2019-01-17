@@ -27,6 +27,7 @@ import { TestBed } from '@angular/core/testing';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/event';
 import { getCookie, userCookieName } from '../utilities/cookie.utils';
+import { AuthService } from '../services/auth.service';
 
 const colors: any = {
   red: {
@@ -80,7 +81,9 @@ export class CalendarOverviewComponent {
   activeDayIsOpen: boolean = true;
 
   constructor(private router: Router,
-    private eventService: EventService) {
+    private eventService: EventService,
+    private authService: AuthService) {
+    this.authService.checkLogin();
     eventService.getAllEvents().subscribe((events) => {
       events.forEach(e => {
         console.log("Event:", e);
@@ -117,11 +120,11 @@ export class CalendarOverviewComponent {
     this.refresh.next();
   }
 
-  addEvent(){
+  addEvent() {
     this.router.navigate(['event/create']);
   }
 
-  showEventDetails(event: CalendarEvent<Event>){
+  showEventDetails(event: CalendarEvent<Event>) {
     this.router.navigate(["event/view", event.id]);
   }
 
@@ -137,7 +140,7 @@ export class CalendarOverviewComponent {
 
   configUISettings(event: CalendarEvent<Event>): CalendarEvent<Event> {
     event.color = colors.red;
-    if(event.meta.fk_UserEventHost === getCookie(userCookieName)){
+    if (event.meta.fk_UserEventHost === getCookie(userCookieName)) {
       event.actions = this.actions;
     }
 

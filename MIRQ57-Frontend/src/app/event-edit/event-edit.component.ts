@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { getCookie, userCookieName } from '../utilities/cookie.utils';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-event-edit',
@@ -23,14 +24,16 @@ export class EventEditComponent implements OnInit, OnDestroy {
 
   constructor(private eventService: EventService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private authService: AuthService) {
+    this.authService.checkLogin();
     console.log("recieved")
     this.sub = route.params.subscribe(params => {
       var id = +params['id'];
       if (id) {
         this.eventService.getEventById(id).subscribe(event => {
           // Only event hoster can edit an event
-          if(event.fk_UserEventHost !== getCookie(userCookieName)){
+          if (event.fk_UserEventHost !== getCookie(userCookieName)) {
             this.router.navigate(['calendar']);
           }
 
