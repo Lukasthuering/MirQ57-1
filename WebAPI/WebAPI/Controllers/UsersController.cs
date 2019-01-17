@@ -33,6 +33,7 @@ namespace WebAPI.Controllers
             return null;
         }
 
+        [HttpGet]
         public User GetUserById(Guid userId)
         {
             if(userId != null && userId != Guid.Empty)
